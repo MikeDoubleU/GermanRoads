@@ -31,6 +31,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="BeforeBuild" command="cmd /c &quot;IF EXIST E:\Steam\SteamApps\workshop\content\255710\426854617\${SolutionName}.dll (del 'E:\Steam\SteamApps\workshop\content\255710\426854617\${SolutionName}.dll')&quot;" externalConsole="True" />
+        <Command type="AfterBuild" command="xcopy /Y &quot;bin\${ProjectConfigName}\${SolutionName}.dll&quot; &quot;E:\Steam\SteamApps\workshop\content\255710\426854617\&quot;" externalConsole="True" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GermanRoads.cs" />
