@@ -347,7 +347,7 @@ namespace GermanRoads
 				Debug.Log(string.Format("German Roads: Initialized {0}", autobahn3lane1way.name));
 			});
 
-			NetInfo autobahn3lane1wayElevated = clonePrefab("Road", "Medium Road Elevated", "Autobahn Three Lanes One-way (Elevated)", "");
+			NetInfo autobahn3lane1wayElevated = clonePrefab("Road", "Highway Elevated", "Autobahn Three Lanes One-way (Elevated)", "");
 			later(() => {
 				autobahn3lane1wayElevated.m_averageVehicleLaneSpeed = 4f;
 				for(int i = 0; i<autobahn3lane1wayElevated.m_lanes.Length; ++i) {
@@ -368,7 +368,7 @@ namespace GermanRoads
 				Debug.Log(string.Format("German Roads: Initialized {0}", autobahn3lane1wayElevated.name));
 			});
 
-			NetInfo autobahn3lane1wayBridge = clonePrefab("Road", "Medium Road Bridge", "Autobahn Three Lanes One-way (Bridge)", "");
+			NetInfo autobahn3lane1wayBridge = clonePrefab("Road", "Highway Bridge", "Autobahn Three Lanes One-way (Bridge)", "");
 			later(() => {
 				autobahn3lane1wayBridge.m_averageVehicleLaneSpeed = 4f;
 				for(int i = 0; i<autobahn3lane1wayBridge.m_lanes.Length; ++i) {
