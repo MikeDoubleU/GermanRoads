@@ -30,7 +30,7 @@ namespace GermanRoads
 
 		public override void OnCreated (ILoading loading) {
 			base.OnCreated(loading);
-//			Debug.Log("German Roads: Loading Container");
+			Debug.Log("German Roads: Loading Container");
 			if(GermanRoadsModLoader.GermanRoadsContainer == null) {
 				GermanRoadsModLoader.GermanRoadsContainer = new GameObject("German Roads Prefabs");
 				GermanRoadsContainer.AddComponent<GermanRoadsContainer>();
@@ -121,33 +121,12 @@ namespace GermanRoads
 			}
 		}
 			
-//		public static string getModPath() {
-//			string workshopPath = ".";
-//			foreach(PublishedFileId mod in Steam.workshop.GetSubscribedItems()) {
-//				if(mod.AsUInt64 == GermanRoadsMod.workshop_id) {
-//					workshopPath = Steam.workshop.GetSubscribedItemPath(mod);
-//					Debug.Log("German Roads: Workshop path: " + workshopPath);
-//					break;
-//				}
-//			}
-//			string localPath = DataLocation.modsPath + "/GermanRoads";
-//			Debug.Log("German Roads: " + localPath);
-//			if(System.IO.Directory.Exists(localPath)) {
-//				Debug.Log("German Roads: Local path exists, looking for assets here: " + localPath);
-//				return localPath;
-//			}
-//			return workshopPath;
-//		}
-
 		public void buildRoads() {
 			RoadAI ai = null;
 
 			// Bundesstrasse
 			Debug.Log("German Roads: buildRoads()");
-			NetInfo bundesstrasse = clonePrefab("Road", "Basic Road", "Bundesstrasse", "A highway with two lanes. 100% as high as the original, but only 12% as way.");
-//			replaceTexture(bundesstrasse, "road_small", true, false);
-//			bundesstrasse.m_Atlas = thumbnails;
-//			bundesstrasse.m_Thumbnail = "SOME4";
+			NetInfo bundesstrasse = clonePrefab("Road", "Basic Road", "Bundesstrasse", "The German Bundesstrasse. Same as the Basic Road, but Speed 100! No Zoning!");
 			later(() => {
 				bundesstrasse.m_createPavement = false;
 				bundesstrasse.m_createGravel = true;
@@ -159,18 +138,18 @@ namespace GermanRoads
 						l.m_speedLimit = 2f;
 					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian) {
 						l.m_laneType = NetInfo.LaneType.None;
-					} else {
-						bundesstrasse.m_lanes[i] = null;
+//					} else {
+//						bundesstrasse.m_lanes[i] = null;
 					}
 				}
 				removeNull(ref bundesstrasse.m_lanes);
 				ai = bundesstrasse.m_netAI as RoadAI;
 				ai.m_highwayRules = true;
 				ai.m_enableZoning = false;
+				ai.m_trafficLights = false;
 				Debug.Log(string.Format("German Roads: Initialized {0}", bundesstrasse.name));
 			});
 			NetInfo bundesstrasseElevated = clonePrefab("Road", "Basic Road Elevated", "Bundesstrasse (Elevated)", "");
-//			replaceTexture(bundesstrasseElevated, "road_small", true, false);
 			later(() => {
 				bundesstrasseElevated.m_averageVehicleLaneSpeed = 2f;
 				for(int i = 0; i<bundesstrasseElevated.m_lanes.Length; ++i) {
@@ -187,10 +166,10 @@ namespace GermanRoads
 				ai.m_elevatedInfo = bundesstrasseElevated;
 				RoadBridgeAI bai = bundesstrasseElevated.m_netAI as RoadBridgeAI;
 				bai.m_highwayRules = true;
+				ai.m_trafficLights = false;
 				Debug.Log(string.Format("German Roads: Initialized {0}", bundesstrasseElevated.name));
 			});
 			NetInfo bundesstrasseBridge = clonePrefab("Road", "Basic Road Bridge", "Bundesstrasse (Bridge)", "");
-//			replaceTexture(bundesstrasseBridge, "road_small", true, false);
 			later(() => {
 				bundesstrasseBridge.m_averageVehicleLaneSpeed = 2f;
 				for(int i = 0; i<bundesstrasseBridge.m_lanes.Length; ++i) {
@@ -207,44 +186,108 @@ namespace GermanRoads
 				ai.m_bridgeInfo = bundesstrasseBridge;
 				RoadBridgeAI bai = bundesstrasseBridge.m_netAI as RoadBridgeAI;
 				bai.m_highwayRules = true;
+				ai.m_trafficLights = false;
 				Debug.Log(string.Format("German Roads: Initialized {0}", bundesstrasseBridge.name));
 			});
 
-			// Autobahn
-			NetInfo autobahn = clonePrefab("Road", "Medium Road", "Autobahn", "A Autobahn with four lanes. 200% the speed of the highway!");
-			//			replaceTexture(autobahn, "road_small", true, false);
-			//			autobahn.m_Atlas = thumbnails;
-			//			autobahn.m_Thumbnail = "SOME4";
+			// Bundesstrasse four lanes, two each direction, devided by a grass lane in the middle
+			NetInfo bundesstrasse4lane = clonePrefab("Road", "Medium Road Decoration Grass", "Bundesstrasse Four Lanes", "The German Bundesstrasse with four lanes, two for each direction. Speed still 100. No Zoning!");
+			later(() => {
+				bundesstrasse4lane.m_createPavement = false;
+				bundesstrasse4lane.m_createGravel = true;
+				bundesstrasse4lane.m_averageVehicleLaneSpeed = 2f;
+				for(int i = 0; i<bundesstrasse4lane.m_lanes.Length; ++i) {
+					NetInfo.Lane l = bundesstrasse4lane.m_lanes[i];
+					l.m_allowStop = false;
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_speedLimit = 2f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian) {
+						l.m_laneType = NetInfo.LaneType.None;
+//					} else {
+//						bundesstrasse4lane.m_lanes[i] = null;
+					}
+				}
+				removeNull(ref bundesstrasse4lane.m_lanes);
+				ai = bundesstrasse4lane.m_netAI as RoadAI;
+				ai.m_highwayRules = true;
+				ai.m_enableZoning = false;
+				ai.m_trafficLights = false;
+				Debug.Log(string.Format("German Roads: Initialized {0}", bundesstrasse4lane.name));
+			});
+			NetInfo bundesstrasse4laneElevated = clonePrefab("Road", "Medium Road Elevated", "Bundesstrasse Four Lanes (Elevated)", "");
+			later(() => {
+				bundesstrasse4laneElevated.m_averageVehicleLaneSpeed = 2f;
+				for(int i = 0; i<bundesstrasse4laneElevated.m_lanes.Length; ++i) {
+					NetInfo.Lane l = bundesstrasse4laneElevated.m_lanes[i];
+					l.m_allowStop = false;
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_speedLimit = 2f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian || l.m_laneType == NetInfo.LaneType.PublicTransport) {
+						bundesstrasse4laneElevated.m_lanes[i] = null;
+					}
+				}
+				removeNull(ref bundesstrasse4laneElevated.m_lanes);
+				ai = bundesstrasse4lane.m_netAI as RoadAI;
+				ai.m_elevatedInfo = bundesstrasse4laneElevated;
+				RoadBridgeAI bai = bundesstrasse4laneElevated.m_netAI as RoadBridgeAI;
+				bai.m_highwayRules = true;
+				ai.m_trafficLights = false;
+				Debug.Log(string.Format("German Roads: Initialized {0}", bundesstrasse4laneElevated.name));
+			});
+			NetInfo bundesstrasse4laneBridge = clonePrefab("Road", "Medium Road Bridge", "Bundesstrasse Four Lanes (Bridge)", "");
+			later(() => {
+				bundesstrasse4laneBridge.m_averageVehicleLaneSpeed = 2f;
+				for(int i = 0; i<bundesstrasse4laneBridge.m_lanes.Length; ++i) {
+					NetInfo.Lane l = bundesstrasse4laneBridge.m_lanes[i];
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_allowStop = false;
+						l.m_speedLimit = 2f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian || l.m_laneType == NetInfo.LaneType.PublicTransport) {
+						bundesstrasse4laneBridge.m_lanes[i] = null;
+					}
+				}
+				removeNull(ref bundesstrasse4laneBridge.m_lanes);
+				ai = bundesstrasse4lane.m_netAI as RoadAI;
+				ai.m_bridgeInfo = bundesstrasse4laneBridge;
+				RoadBridgeAI bai = bundesstrasse4laneBridge.m_netAI as RoadBridgeAI;
+				bai.m_highwayRules = true;
+				ai.m_trafficLights = false;
+				Debug.Log(string.Format("German Roads: Initialized {0}", bundesstrasse4laneBridge.name));
+			});
+
+			// Autobahn four lanes, two for each direction, devided by a concrete lane in the middle
+			NetInfo autobahn = clonePrefab("Road", "Medium Road", "Autobahn", "The German Autobahn with four lanes, two for each direction. Speed 200!!! No Zoning!");
 			later(() => {
 				autobahn.m_createPavement = false;
 				autobahn.m_createGravel = true;
-				autobahn.m_averageVehicleLaneSpeed = 8f;
+				autobahn.m_averageVehicleLaneSpeed = 4f;
 				for(int i = 0; i<autobahn.m_lanes.Length; ++i) {
 					NetInfo.Lane l = autobahn.m_lanes[i];
 					l.m_allowStop = false;
 					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
-						l.m_speedLimit = 8f;
+						l.m_speedLimit = 4f;
 					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian) {
 						l.m_laneType = NetInfo.LaneType.None;
-					} else {
-						autobahn.m_lanes[i] = null;
+//					} else {
+//						autobahn.m_lanes[i] = null;
 					}
 				}
 				removeNull(ref autobahn.m_lanes);
 				ai = autobahn.m_netAI as RoadAI;
 				ai.m_highwayRules = true;
 				ai.m_enableZoning = false;
+				ai.m_trafficLights = false;
 				Debug.Log(string.Format("German Roads: Initialized {0}", autobahn.name));
 			});
-			NetInfo autobahnElevated = clonePrefab("Road", "Medium Road Elevated", "autobahn (Elevated)", "");
-			//			replaceTexture(autobahnElevated, "road_small", true, false);
+
+			NetInfo autobahnElevated = clonePrefab("Road", "Medium Road Elevated", "Autobahn (Elevated)", "");
 			later(() => {
-				autobahnElevated.m_averageVehicleLaneSpeed = 8f;
+				autobahnElevated.m_averageVehicleLaneSpeed = 4f;
 				for(int i = 0; i<autobahnElevated.m_lanes.Length; ++i) {
 					NetInfo.Lane l = autobahnElevated.m_lanes[i];
 					l.m_allowStop = false;
 					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
-						l.m_speedLimit = 8f;
+						l.m_speedLimit = 4f;
 					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian || l.m_laneType == NetInfo.LaneType.PublicTransport) {
 						autobahnElevated.m_lanes[i] = null;
 					}
@@ -254,17 +297,18 @@ namespace GermanRoads
 				ai.m_elevatedInfo = autobahnElevated;
 				RoadBridgeAI bai = autobahnElevated.m_netAI as RoadBridgeAI;
 				bai.m_highwayRules = true;
+				ai.m_trafficLights = false;
 				Debug.Log(string.Format("German Roads: Initialized {0}", autobahnElevated.name));
 			});
-			NetInfo autobahnBridge = clonePrefab("Road", "Medium Road Bridge", "autobahn (Bridge)", "");
-			//			replaceTexture(autobahnBridge, "road_small", true, false);
+
+			NetInfo autobahnBridge = clonePrefab("Road", "Medium Road Bridge", "Autobahn (Bridge)", "");
 			later(() => {
-				autobahnBridge.m_averageVehicleLaneSpeed = 8f;
+				autobahnBridge.m_averageVehicleLaneSpeed = 4f;
 				for(int i = 0; i<autobahnBridge.m_lanes.Length; ++i) {
 					NetInfo.Lane l = autobahnBridge.m_lanes[i];
 					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
 						l.m_allowStop = false;
-						l.m_speedLimit = 8f;
+						l.m_speedLimit = 4f;
 					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian || l.m_laneType == NetInfo.LaneType.PublicTransport) {
 						autobahnBridge.m_lanes[i] = null;
 					}
@@ -274,66 +318,77 @@ namespace GermanRoads
 				ai.m_bridgeInfo = autobahnBridge;
 				RoadBridgeAI bai = autobahnBridge.m_netAI as RoadBridgeAI;
 				bai.m_highwayRules = true;
+				ai.m_trafficLights = false;
 				Debug.Log(string.Format("German Roads: Initialized {0}", autobahnBridge.name));
 			});
+
+			// Autobahn three-lane, one-way
+			NetInfo autobahn3lane1way = clonePrefab("Road", "Highway", "Autobahn Three Lanes One-way", "The German Autobahn with three lanes but only one-way. So basically the same as the highway, but with Speed 200!!!");
+			later(() => {
+				autobahn3lane1way.m_createPavement = false;
+				autobahn3lane1way.m_createGravel = true;
+				autobahn3lane1way.m_averageVehicleLaneSpeed = 4f;
+				for(int i = 0; i<autobahn3lane1way.m_lanes.Length; ++i) {
+					NetInfo.Lane l = autobahn3lane1way.m_lanes[i];
+					l.m_allowStop = false;
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_speedLimit = 4f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian) {
+						l.m_laneType = NetInfo.LaneType.None;
+//					} else {
+//						autobahn3lane1way.m_lanes[i] = null;
+					}
+				}
+				removeNull(ref autobahn3lane1way.m_lanes);
+				ai = autobahn3lane1way.m_netAI as RoadAI;
+				ai.m_highwayRules = true;
+				ai.m_enableZoning = false;
+				ai.m_trafficLights = false;
+				Debug.Log(string.Format("German Roads: Initialized {0}", autobahn3lane1way.name));
+			});
+
+			NetInfo autobahn3lane1wayElevated = clonePrefab("Road", "Medium Road Elevated", "Autobahn Three Lanes One-way (Elevated)", "");
+			later(() => {
+				autobahn3lane1wayElevated.m_averageVehicleLaneSpeed = 4f;
+				for(int i = 0; i<autobahn3lane1wayElevated.m_lanes.Length; ++i) {
+					NetInfo.Lane l = autobahn3lane1wayElevated.m_lanes[i];
+					l.m_allowStop = false;
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_speedLimit = 4f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian || l.m_laneType == NetInfo.LaneType.PublicTransport) {
+						autobahn3lane1wayElevated.m_lanes[i] = null;
+					}
+				}
+				removeNull(ref autobahn3lane1wayElevated.m_lanes);
+				ai = autobahn3lane1way.m_netAI as RoadAI;
+				ai.m_trafficLights = false;
+				ai.m_elevatedInfo = autobahn3lane1wayElevated;
+				RoadBridgeAI bai = autobahn3lane1wayElevated.m_netAI as RoadBridgeAI;
+				bai.m_highwayRules = true;
+				Debug.Log(string.Format("German Roads: Initialized {0}", autobahn3lane1wayElevated.name));
+			});
+
+			NetInfo autobahn3lane1wayBridge = clonePrefab("Road", "Medium Road Bridge", "Autobahn Three Lanes One-way (Bridge)", "");
+			later(() => {
+				autobahn3lane1wayBridge.m_averageVehicleLaneSpeed = 4f;
+				for(int i = 0; i<autobahn3lane1wayBridge.m_lanes.Length; ++i) {
+					NetInfo.Lane l = autobahn3lane1wayBridge.m_lanes[i];
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_allowStop = false;
+						l.m_speedLimit = 4f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian || l.m_laneType == NetInfo.LaneType.PublicTransport) {
+						autobahn3lane1wayBridge.m_lanes[i] = null;
+					}
+				}
+				removeNull(ref autobahn3lane1wayBridge.m_lanes);
+				ai = autobahn3lane1way.m_netAI as RoadAI;
+				ai.m_trafficLights = false;
+				ai.m_bridgeInfo = autobahn3lane1wayBridge;
+				RoadBridgeAI bai = autobahn3lane1wayBridge.m_netAI as RoadBridgeAI;
+				bai.m_highwayRules = true;
+				Debug.Log(string.Format("German Roads: Initialized {0}", autobahn3lane1wayBridge.name));
+			});
 		}
-
-//		public void loadThumbnailAtlas() {
-//			if(thumbnails != null) return;
-//
-//			thumbnails = ScriptableObject.CreateInstance<UITextureAtlas>();
-//			thumbnails.padding = 0;
-//			thumbnails.name = "German Roads Thumbnails";
-//
-//			Shader shader = Shader.Find("UI/Default UI Shader");
-//			if(shader != null) thumbnails.material = new Material(shader);
-//
-////			string path = getModPath() + "/thumbnail_atlas.png";
-//			Texture2D tex = new Texture2D(1, 1);
-////			tex.LoadImage(System.IO.File.ReadAllBytes(path));
-//			thumbnails.material.mainTexture = tex;
-//
-//			Texture2D tx = new Texture2D(109, 100);
-//
-//			string[] ts = new string[] { "", "Disabled", "Focused", "Hovered", "Pressed" };
-//			for(int i = 0; i < 10; ++i) {
-//				for(int j = 0; j < ts.Length; ++j) {
-//					UITextureAtlas.SpriteInfo sprite = new UITextureAtlas.SpriteInfo();
-//					sprite.name = string.Format("SOME{0}{1}", i, ts[j]);
-//					sprite.region = new Rect( (j*109f)/1024f, (i*100f)/1024f, 109f/1024f, 100f/1024f );
-//					sprite.texture = tx;
-//					thumbnails.AddSprite(sprite);
-//				}
-//			}
-//		}
-
-//		public void replaceTexture(NetInfo ni, string texName, bool segments, bool nodes) {
-//			string path = getModPath() + "/{0}.png";
-//			Texture2D tex = new Texture2D(1, 1);
-//			tex.LoadImage(System.IO.File.ReadAllBytes(string.Format(path, texName)));
-//			replaceTexture(ni, tex, segments, nodes);
-//		}
-
-//		public void replaceTexture(NetInfo ni, Texture tex, bool segments, bool nodes) {
-//			if(segments) {
-//				Material mat = new Material(ni.m_segments[0].m_material);
-//				mat.shader = ni.m_segments[0].m_material.shader;
-//				mat.SetTexture("_MainTex", tex);
-//				for(int i = 0; i < ni.m_segments.Length; ++i) {
-//					ni.m_segments[i].m_material = mat;
-//					ni.m_segments[i].m_lodRenderDistance = 2500;
-//				}
-//			}
-//			if(nodes) {
-//				Material mat = new Material(ni.m_nodes[0].m_material);
-//				mat.shader = ni.m_nodes[0].m_material.shader;
-//				mat.SetTexture("_MainTex", tex);
-//				for(int i = 0; i < ni.m_nodes.Length; ++i) {
-//					ni.m_nodes[i].m_material = mat;
-//					ni.m_nodes[i].m_lodRenderDistance = 2500;
-//				}
-//			}
-//		}
 
 		public void removeNull<T>(ref T[] array) {
 			int count = 0;
@@ -443,43 +498,6 @@ namespace GermanRoads
 					GermanRoadsContainer.initialized_locale_category = true;
 				}
 			}
-//			if (collectionName != null)
-//			{
-//				MethodInfo method = typeof(NetCollection).GetMethod("InitializePrefabs", BindingFlags.Static | BindingFlags.NonPublic);
-//				Singleton<LoadingManager>.instance.QueueLoadingAction((IEnumerator)method.Invoke(null, new object[]
-//					{
-//						collectionName,
-//						new NetInfo[]
-//						{
-//							component
-//						},
-//						new string[0]
-//					}));
-//				NetInfo.Lane[] lanes = component.m_lanes;
-//				for (int i = 0; i < lanes.Length; i++)
-//				{
-//					GermanRoadsContainer.<>c__DisplayClass15 <>c__DisplayClass = new GermanRoadsContainer.<>c__DisplayClass15();
-//					<>c__DisplayClass.l = lanes[i];
-//					NetLaneProps p = <>c__DisplayClass.l.m_laneProps;
-//					this.later(delegate
-//						{
-//							<>c__DisplayClass.l.m_laneProps = p;
-//						});
-//					<>c__DisplayClass.l.m_laneProps = null;
-//				}
-//			}
-
-//			if(!initialized_locale) {
-//				Locale.Key k = new Locale.Key(){ m_Identifier = "NET_TITLE", m_Key = name };
-//				Locale.AddLocalizedString(k, name);
-//				k = new Locale.Key() { m_Identifier = "NET_DESC", m_Key = name };
-//				k.AddLocalizedString(k, desc);
-//				if(!initialized_locale_category) {
-//					k = new Locale.Key() { m_Identifier = "MAIN_CATEGORY", m_Key = "German Roads" };
-//					k.AddLocalizedString(k, "German Roads");
-//					initialized_locale_category = true;
-//				}
-//			}
 
 			Debug.Log (string.Format("German Roads: collectionName: {0}", collectionName));
 			if(collectionName != null) {
@@ -500,58 +518,8 @@ namespace GermanRoads
 				}
 			}
 
-//			return Component;
 			return GRInfo;
 		}
 	}
 
-	public static class Debug
-	{
-		public static void Out(ColossalFramework.Plugins.PluginManager.MessageType messageType, bool useComma, params System.Object[] o)
-		{
-			string s = "";
-			for (int i = 0; i < o.Length; i++)
-			{
-				s += o[i].ToString();
-				if (i < o.Length - 1 && useComma)
-					s += "  ,  ";
-			}
-			DebugOutputPanel.AddMessage(messageType, s);
-		}
-
-		public static void Log(params System.Object[] o)
-		{
-			Message(o);
-		}
-
-		public static void Message(params System.Object[] o)
-		{
-			Message(true, o);
-		}
-
-		public static void Message(bool useComma, params System.Object[] o)
-		{
-			Out(ColossalFramework.Plugins.PluginManager.MessageType.Message, useComma, o);
-		}
-
-		public static void Warning(params System.Object[] o)
-		{
-			Warning(true, o);
-		}
-
-		public static void Warning(bool useComma, params System.Object[] o)
-		{
-			Out(ColossalFramework.Plugins.PluginManager.MessageType.Warning, useComma, o);
-		}
-
-		public static void Error(params System.Object[] o)
-		{
-			Error(true, o);
-		}
-
-		public static void Error(bool useComma, params System.Object[] o)
-		{
-			Out(ColossalFramework.Plugins.PluginManager.MessageType.Error, useComma, o);
-		}
-	}
 }

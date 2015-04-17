@@ -1,0 +1,28 @@
+﻿*******************************************************************************************************
+*** German Roads 																					***
+*** Version 0.1																						***
+*******************************************************************************************************
+
+WARNING: Savegames with roads from this mod wont load without it!!! You have been warned! This Mod is very EXPERIMENTAL!!!
+
+This mod adds typical German Roads to the game, like the Bundesstrasse or Autobahn.
+That be said, these new roads are just clones of existing road types with different properties. None of the built-in road types (NetInfo) is modified in any way!
+
+Usage:
+Open the roads menu, click the "GR" tab and you can draw and place the roads as you wish.
+
+Features:
+-> Bundesstrasse: Same as the Basic/Small Road but with speed 100. No zoning!
+-> Bundesstrasse Four Lanes: Same as the Medium Road with four lanes, two for each direction, devided by a grass lane. Speed 100, no zoning!
+-> Autobahn: Same as the Medium Road with four lanes, two for each direction, devided by the concrete lane. Speed 200!!! No zoning!
+-> Autobahn Three Lanes One-way: Basically the same as the highway, but with Speed 200!!!
+-> All roads run with the highwayRules, which (as far as I understand, could be wrong) prevents the AI from doing stupid stuff like parking on the Autobahn.
+-> All roads are configured to NOT create traffic lights on intersections. If you need them anyway, use the mod "Toggle Traffic Lights". Works like a charm.
+
+Limitations:
+-> I already can read a "Hey, the german Autobahn normally has no speed limit, why not set it to 400+ then??" comment. Yeah, tried that as well :D , but all cars seem to have a top speed of 200 anyway.
+
+Known Issues:
+-> No preview images in the tooltips
+-> The Mod "Lane Changer" from crispy basically works, the cars will obey the settings, but doesnt change the lane markings.
+-> Might be way more ;)
