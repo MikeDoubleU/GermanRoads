@@ -15,6 +15,8 @@ namespace GermanRoads
 {
 	public class GermanRoadsMod : IUserMod {
 
+		public const UInt64 workshop_id = 426854617;
+
 		public string Name {
 			get { return "German Roads"; }
 		}
