@@ -94,8 +94,6 @@ namespace GermanRoads
 				initialized_tab = 100;
 				Debug.Log("German Roads: Trying to locate panels");
 				RoadsGroupPanel[] array = GameObject.FindObjectsOfType<RoadsGroupPanel>();
-//				PublicTransportGroupPanel[] array2 = UnityEngine.Object.FindObjectsOfType<PublicTransportGroupPanel>();
-//				if (array != null && array2 != null)
 				if (array != null)
 				{
 					int num = 0;
@@ -108,6 +106,7 @@ namespace GermanRoads
 								if (uIButton.name == "German Roads") {
 									uIButton.text = "GR";
 									num++;
+									sortGRPanel();
 									Debug.Log ("German Roads: Found tab button & changed text in roads panel");
 								}
 							} else {
@@ -390,6 +389,70 @@ namespace GermanRoads
 				bai.m_highwayRules = true;
 				Debug.Log(string.Format("German Roads: Initialized {0}", autobahn3lane1wayBridge.name));
 			});
+
+			// Autobahn ramp, two-lane, one-way
+			Debug.Log("German Roads: buildRoads()");
+			NetInfo auobahnramp = clonePrefab("Road", "Oneway Road", "Autobahn Ramp", "A two lane Autobahn ramp with speed 80.");
+			later(() => {
+				auobahnramp.m_createPavement = false;
+				auobahnramp.m_createGravel = true;
+				auobahnramp.m_averageVehicleLaneSpeed = 1.6f;
+				for(int i = 0; i<auobahnramp.m_lanes.Length; ++i) {
+					NetInfo.Lane l = auobahnramp.m_lanes[i];
+					l.m_allowStop = false;
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_speedLimit = 1.6f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian) {
+						l.m_laneType = NetInfo.LaneType.None;
+					}
+				}
+				removeNull(ref auobahnramp.m_lanes);
+				ai = auobahnramp.m_netAI as RoadAI;
+				ai.m_highwayRules = true;
+				ai.m_enableZoning = false;
+				ai.m_trafficLights = false;
+				Debug.Log(string.Format("German Roads: Initialized {0}", auobahnramp.name));
+			});
+			NetInfo auobahnrampElevated = clonePrefab("Road", "Basic Road Elevated", "auobahnramp (Elevated)", "");
+			later(() => {
+				auobahnrampElevated.m_averageVehicleLaneSpeed = 1.6f;
+				for(int i = 0; i<auobahnrampElevated.m_lanes.Length; ++i) {
+					NetInfo.Lane l = auobahnrampElevated.m_lanes[i];
+					l.m_allowStop = false;
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_speedLimit = 1.6f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian || l.m_laneType == NetInfo.LaneType.PublicTransport) {
+						auobahnrampElevated.m_lanes[i] = null;
+					}
+				}
+				removeNull(ref auobahnrampElevated.m_lanes);
+				ai = auobahnramp.m_netAI as RoadAI;
+				ai.m_elevatedInfo = auobahnrampElevated;
+				RoadBridgeAI bai = auobahnrampElevated.m_netAI as RoadBridgeAI;
+				bai.m_highwayRules = true;
+				ai.m_trafficLights = false;
+				Debug.Log(string.Format("German Roads: Initialized {0}", auobahnrampElevated.name));
+			});
+			NetInfo auobahnrampBridge = clonePrefab("Road", "Basic Road Bridge", "auobahnramp (Bridge)", "");
+			later(() => {
+				auobahnrampBridge.m_averageVehicleLaneSpeed = 1.6f;
+				for(int i = 0; i<auobahnrampBridge.m_lanes.Length; ++i) {
+					NetInfo.Lane l = auobahnrampBridge.m_lanes[i];
+					if(l.m_laneType == NetInfo.LaneType.Vehicle) {
+						l.m_allowStop = false;
+						l.m_speedLimit = 1.6f;
+					} else if(l.m_laneType == NetInfo.LaneType.Pedestrian || l.m_laneType == NetInfo.LaneType.PublicTransport) {
+						auobahnrampBridge.m_lanes[i] = null;
+					}
+				}
+				removeNull(ref auobahnrampBridge.m_lanes);
+				ai = auobahnramp.m_netAI as RoadAI;
+				ai.m_bridgeInfo = auobahnrampBridge;
+				RoadBridgeAI bai = auobahnrampBridge.m_netAI as RoadBridgeAI;
+				bai.m_highwayRules = true;
+				ai.m_trafficLights = false;
+				Debug.Log(string.Format("German Roads: Initialized {0}", auobahnrampBridge.name));
+			});
 		}
 
 		public void removeNull<T>(ref T[] array) {
@@ -406,6 +469,54 @@ namespace GermanRoads
 				}
 			}
 			array = nu;
+		}
+
+		void sortGRPanel() {
+			UIButton[] uiButton = GameObject.FindObjectsOfType<UIButton>();
+			Boolean bChange = false;
+
+			do {
+				
+				bChange = false;
+
+				Debug.Log("German Roads: Sorting Panel.");
+
+				for (int i = 0; i < uiButton.Length; i++) {
+
+						switch (uiButton [i].name) {
+						case "Bundesstrasse":
+							if (uiButton [i].zOrder != 0) {
+								uiButton [i].zOrder = 0;
+								bChange = true;
+							}
+							break;
+						case "Bundesstrasse Four Lanes":
+							if (uiButton [i].zOrder != 1) {
+								uiButton [i].zOrder = 1;
+								bChange = true;
+							}
+							break;
+						case "Autobahn":
+							if (uiButton [i].zOrder != 2) {
+								uiButton [i].zOrder = 2;
+								bChange = true;
+							}
+							break;
+						case "Autobahn Three Lanes One-way":
+							if (uiButton [i].zOrder != 3) {
+								uiButton [i].zOrder = 3;
+								bChange = true;
+							}
+							break;
+						case "Autobahn Ramp":
+							if (uiButton [i].zOrder != 4) {
+								uiButton [i].zOrder = 4;
+								bChange = true;
+							}
+							break;
+						}
+				}
+			} while (bChange == true);
 		}
 
 		public void cloneArray<T>(ref T[] source) where T: new() {
