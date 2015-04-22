@@ -122,7 +122,7 @@ namespace GermanRoads
 			}
 		}
 			
-		public void buildRoads() {
+		private void buildRoads() {
 			RoadAI ai = null;
 
 			// Bundesstrasse
@@ -455,7 +455,7 @@ namespace GermanRoads
 			});
 		}
 
-		public void removeNull<T>(ref T[] array) {
+		private void removeNull<T>(ref T[] array) {
 			int count = 0;
 			for(int i = 0; i < array.Length; ++i) {
 				if(array[i] != null) ++count;
@@ -471,11 +471,11 @@ namespace GermanRoads
 			array = nu;
 		}
 
-		void sortGRPanel() {
+		private void sortGRPanel() {
 			UIButton[] uiButton = GameObject.FindObjectsOfType<UIButton>();
 			Boolean bChange = false;
 
-			do {
+			for (int iruns = 0; iruns < 10; iruns++) {
 				
 				bChange = false;
 
@@ -516,10 +516,14 @@ namespace GermanRoads
 							break;
 						}
 				}
-			} while (bChange == true);
+
+				if (bChange == false) {
+					break;
+				}
+			}
 		}
 
-		public void cloneArray<T>(ref T[] source) where T: new() {
+		private void cloneArray<T>(ref T[] source) where T: new() {
 			T[] new_array = new T[source.Length];
 			for(int i = 0; i < new_array.Length; ++i) {
 				T original = source[i];
@@ -532,22 +536,22 @@ namespace GermanRoads
 			source = new_array;
 		}
 
-		public void shallowCopy<T>(T source, ref T clone) where T: new() {
+		private void shallowCopy<T>(T source, ref T clone) where T: new() {
 			foreach(FieldInfo f in typeof(T).GetAllFields()) {
 				f.SetValue(clone, f.GetValue(source));
 			}
 		}
 
-		public void later(Action a) {
+		private void later(Action a) {
 			Singleton<LoadingManager>.instance.QueueLoadingAction(inCoroutine(a));
 		}
 
-		public IEnumerator inCoroutine(Action a) {
+		private IEnumerator inCoroutine(Action a) {
 			a.Invoke();
 			yield break;
 		}
 
-		public PropInfo findProp(string name) {
+		private PropInfo findProp(string name) {
 			foreach(PropCollection collection in UnityEngine.Object.FindObjectsOfType<PropCollection>()) {
 				Debug.Log(string.Format("German Roads: PropCollection {0}", collection.name));
 				foreach(PropInfo prop in collection.m_prefabs) {
@@ -560,7 +564,7 @@ namespace GermanRoads
 			return null;
 		}
 
-		public NetInfo clonePrefab(string collectionName, string sourceName, string name, string desc)
+		private NetInfo clonePrefab(string collectionName, string sourceName, string name, string desc)
 		{
 			Debug.Log(string.Format("German Roads: Cloning {1} -> {2}, adding to collection: {0}", collectionName, sourceName, name));
 			foreach(NetCollection collection in NetCollection.FindObjectsOfType<NetCollection>()) {
@@ -572,7 +576,7 @@ namespace GermanRoads
 			}
 			return null;
 		}
-		public NetInfo clonePrefab(NetInfo prefab, string collectionName, string name, string desc)
+		private NetInfo clonePrefab(NetInfo prefab, string collectionName, string name, string desc)
 		{
 			Debug.Log ("German Roads: Creating GR Tab and populating it.");
 //			NetInfo originalInfo = prefab;
