@@ -413,7 +413,7 @@ namespace GermanRoads
 				ai.m_trafficLights = false;
 				Debug.Log(string.Format("German Roads: Initialized {0}", auobahnramp.name));
 			});
-			NetInfo auobahnrampElevated = clonePrefab("Road", "Basic Road Elevated", "auobahnramp (Elevated)", "");
+			NetInfo auobahnrampElevated = clonePrefab("Road", "Oneway Road Elevated", "auobahnramp (Elevated)", "");
 			later(() => {
 				auobahnrampElevated.m_averageVehicleLaneSpeed = 1.6f;
 				for(int i = 0; i<auobahnrampElevated.m_lanes.Length; ++i) {
@@ -433,7 +433,7 @@ namespace GermanRoads
 				ai.m_trafficLights = false;
 				Debug.Log(string.Format("German Roads: Initialized {0}", auobahnrampElevated.name));
 			});
-			NetInfo auobahnrampBridge = clonePrefab("Road", "Basic Road Bridge", "auobahnramp (Bridge)", "");
+			NetInfo auobahnrampBridge = clonePrefab("Road", "Oneway Road Bridge", "auobahnramp (Bridge)", "");
 			later(() => {
 				auobahnrampBridge.m_averageVehicleLaneSpeed = 1.6f;
 				for(int i = 0; i<auobahnrampBridge.m_lanes.Length; ++i) {
