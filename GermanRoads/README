@@ -19,6 +19,8 @@ Features:
 -> Autobahn Ramp: A two-lane oneway ramp with speed 80.
 -> All roads run with the highwayRules, which (as far as I understand, could be wrong) prevents the AI from doing stupid stuff like parking on the Autobahn.
 -> All roads are configured to NOT create traffic lights on intersections. If you need them anyway, use the mod "Toggle Traffic Lights". Works like a charm.
+-> All traffic signs are correctly displayed (sadly there is no 200 sign).
+-> Own thumbnails in the GR tab instead of the game ones
 
 Limitations:
 -> I already can read a "Hey, the german Autobahn normally has no speed limit, why not set it to 400+ then??" comment. Yeah, tried that as well :D , but all cars seem to have a top speed of 200 anyway.
@@ -26,5 +28,4 @@ Limitations:
 Known Issues:
 -> No preview images in the tooltips
 -> While loading, the roads in the GR-Panel sometimes get mixed up. This is only a cosmetical error.
--> The Map Editor sometimes mixes up the GR panel and the SR (Some Roads) panel, leaves one of them or even both of them blank. Quite strange...
--> Might be way more ;)
+-> The Map-Editor and the game itself sometimes mixes up the GR panel and the SR (Some Roads) panel, leaves one of them or even both of them blank. Quite strange...
