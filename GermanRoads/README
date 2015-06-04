@@ -1,6 +1,6 @@
 ﻿*******************************************************************************************************
 *** German Roads 																					***
-*** Version 0.15b																					***
+*** Version 0.5																					    ***
 *******************************************************************************************************
 
 WARNING: Savegames with roads from this mod wont load without it!!! You have been warned! This Mod is very EXPERIMENTAL!!!
@@ -25,7 +25,6 @@ Limitations:
 
 Known Issues:
 -> No preview images in the tooltips
--> The Mod "Lane Changer" from crispy basically works, the cars will obey the settings, but doesnt change the lane markings.
 -> While loading, the roads in the GR-Panel sometimes get mixed up. This is only a cosmetical error.
 -> The Map Editor sometimes mixes up the GR panel and the SR (Some Roads) panel, leaves one of them or even both of them blank. Quite strange...
 -> Might be way more ;)
