@@ -70,9 +70,10 @@
   <ItemGroup>
     <None Include="LICENSE" />
     <None Include="README" />
-    <None Include="..\..\GR_atlas.png">
-      <Link>GR_atlas.png</Link>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GR_atlas.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
 </Project>
