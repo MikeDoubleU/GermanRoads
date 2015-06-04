@@ -44,6 +44,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Screenshots\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
@@ -70,6 +71,24 @@
   <ItemGroup>
     <None Include="LICENSE" />
     <None Include="README" />
+    <None Include="Screenshots\01.jpg" />
+    <None Include="Screenshots\02.jpg" />
+    <None Include="Screenshots\03.jpg" />
+    <None Include="Screenshots\04.jpg" />
+    <None Include="Screenshots\05.jpg" />
+    <None Include="Screenshots\06.jpg" />
+    <None Include="Screenshots\07.jpg" />
+    <None Include="Screenshots\08.jpg" />
+    <None Include="Screenshots\09.jpg" />
+    <None Include="Screenshots\10.jpg" />
+    <None Include="Screenshots\11.jpg" />
+    <None Include="Screenshots\12.jpg" />
+    <None Include="Screenshots\13.jpg" />
+    <None Include="Screenshots\14.jpg" />
+    <None Include="Screenshots\15.jpg" />
+    <None Include="Screenshots\16.jpg" />
+    <None Include="Screenshots\17.jpg" />
+    <None Include="PreviewImage.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="GR_atlas.png">
