@@ -3658,19 +3658,18 @@ namespace GermanRoads
 		}
 
 		private static string getModPath() {
-//			string workshopPath = ".";
-//			foreach(PublishedFileId mod in Steam.workshop.GetSubscribedItems()) {
-//				if(mod.AsUInt64 == GermanRoadsMod.workshop_id) {
-//					workshopPath = Steam.workshop.GetSubscribedItemPath(mod);
-//					break;
-//				}
-//			}
+			string workshopPath = ".";
+			foreach(PublishedFileId mod in Steam.workshop.GetSubscribedItems()) {
+				if(mod.AsUInt64 == GermanRoadsMod.workshop_id) {
+					workshopPath = Steam.workshop.GetSubscribedItemPath(mod);
+					break;
+				}
+			}
 			string localPath = DataLocation.modsPath + "/GermanRoads";
 			if(System.IO.Directory.Exists(localPath)) {
 				return localPath;
 			}
-			return null;
-//			return workshopPath;
+			return workshopPath;
 		}
 
 //		private void cloneArray<T>(ref T[] source) where T: new() {
