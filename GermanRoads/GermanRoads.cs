@@ -230,6 +230,8 @@ namespace GermanRoads
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop NoParking")) {
 											continue;
+										} else if (l_props.m_prop.name.Equals ("New Street Light Small Road")) {
+											continue;
 										} else {
 											proplist.Add (l_props);
 										}
@@ -356,6 +358,8 @@ namespace GermanRoads
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop")) {
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop NoParking")) {
+											continue;
+										} else if (l_props.m_prop.name.Equals ("New Street Light Small Road")) {
 											continue;
 										} else {
 											proplist.Add (l_props);
@@ -486,6 +490,8 @@ namespace GermanRoads
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop NoParking")) {
 											continue;
+										} else if (l_props.m_prop.name.Equals ("New Street Light Small Road")) {
+											continue;
 										} else {
 											proplist.Add (l_props);
 										}
@@ -615,6 +621,8 @@ namespace GermanRoads
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop")) {
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop NoParking")) {
+											continue;
+										} else if (l_props.m_prop.name.Equals ("New Street Light Small Road")) {
 											continue;
 										} else {
 											proplist.Add (l_props);
@@ -2533,9 +2541,11 @@ namespace GermanRoads
 						for (int k = 0; k < copyLanes.Length; k++) {
 
 							NetInfo.Lane newLane = copyLanes[k];
-							if (newLane.m_laneType == l.m_laneType && newLane.m_direction == l.m_direction && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
-
-								laneProps.name = string.Format("Autobahn Three Lanes One-way props {0} {1}", newLane.m_direction, newLane.m_similarLaneIndex);
+							// if (newLane.m_laneType == l.m_laneType && newLane.m_direction == l.m_direction && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
+							if (newLane.m_laneType == l.m_laneType && newLane.m_position == l.m_position && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
+								
+								// laneProps.name = string.Format("Autobahn Three Lanes One-way props {0} {1}", newLane.m_direction, newLane.m_similarLaneIndex);
+								laneProps.name = string.Format("Autobahn Three Lanes One-way props {0} {1}", newLane.m_position, newLane.m_similarLaneIndex);
 								if (laneProps.name == l.m_laneProps.name) {
 									laneProps.name = "";
 								} else {
@@ -2567,7 +2577,7 @@ namespace GermanRoads
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Bus Stop Large")) {
 											continue;
-										} else if (l_props.m_prop.name.Equals ("New Street Light")) {
+										} else if (l_props.m_prop.name.Equals ("New Street Light Highway")) {
 											continue;
 										} else {
 											proplist.Add (l_props);
@@ -2655,9 +2665,11 @@ namespace GermanRoads
 						for (int k = 0; k < copyLanes.Length; k++) {
 
 							NetInfo.Lane newLane = copyLanes[k];
-							if (newLane.m_laneType == l.m_laneType && newLane.m_direction == l.m_direction && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
+							// if (newLane.m_laneType == l.m_laneType && newLane.m_direction == l.m_direction && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
+							if (newLane.m_laneType == l.m_laneType && newLane.m_position== l.m_position && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
 
-								laneProps.name = string.Format("Autobahn Three Lanes One-way Elevated props {0} {1}", newLane.m_direction, newLane.m_similarLaneIndex);
+								// laneProps.name = string.Format("Autobahn Three Lanes One-way Elevated props {0} {1}", newLane.m_direction, newLane.m_similarLaneIndex);
+								laneProps.name = string.Format("Autobahn Three Lanes One-way Elevated props {0} {1}", newLane.m_position, newLane.m_similarLaneIndex);
 								if (laneProps.name == l.m_laneProps.name) {
 									laneProps.name = "";
 								} else {
@@ -2689,7 +2701,7 @@ namespace GermanRoads
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Bus Stop Large")) {
 											continue;
-										} else if (l_props.m_prop.name.Equals ("New Street Light")) {
+										} else if (l_props.m_prop.name.Equals ("New Street Light Highway")) {
 											continue;
 										} else {
 											proplist.Add (l_props);
@@ -2778,9 +2790,11 @@ namespace GermanRoads
 						for (int k = 0; k < copyLanes.Length; k++) {
 
 							NetInfo.Lane newLane = copyLanes[k];
-							if (newLane.m_laneType == l.m_laneType && newLane.m_direction == l.m_direction && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
+							// if (newLane.m_laneType == l.m_laneType && newLane.m_direction == l.m_direction && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
+							if (newLane.m_laneType == l.m_laneType && newLane.m_position == l.m_position && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
 
-								laneProps.name = string.Format("Autobahn Three Lanes One-way Bridge props {0} {1}", newLane.m_direction, newLane.m_similarLaneIndex);
+								// laneProps.name = string.Format("Autobahn Three Lanes One-way Bridge props {0} {1}", newLane.m_direction, newLane.m_similarLaneIndex);
+								laneProps.name = string.Format("Autobahn Three Lanes One-way Bridge props {0} {1}", newLane.m_position, newLane.m_similarLaneIndex);
 								if (laneProps.name == l.m_laneProps.name) {
 									laneProps.name = "";
 								} else {
@@ -2812,7 +2826,7 @@ namespace GermanRoads
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Bus Stop Large")) {
 											continue;
-										} else if (l_props.m_prop.name.Equals ("New Street Light")) {
+										} else if (l_props.m_prop.name.Equals ("New Street Light Highway")) {
 											continue;
 										} else {
 											proplist.Add (l_props);
@@ -2901,9 +2915,11 @@ namespace GermanRoads
 						for (int k = 0; k < copyLanes.Length; k++) {
 
 							NetInfo.Lane newLane = copyLanes[k];
-							if (newLane.m_laneType == l.m_laneType && newLane.m_direction == l.m_direction && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
+							// if (newLane.m_laneType == l.m_laneType && newLane.m_direction == l.m_direction && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
+							if (newLane.m_laneType == l.m_laneType && newLane.m_position == l.m_position && newLane.m_similarLaneIndex == l.m_similarLaneIndex) {
 
-								laneProps.name = string.Format("Autobahn Three Lanes One-way Slope props {0} {1}", newLane.m_direction, newLane.m_similarLaneIndex);
+								// laneProps.name = string.Format("Autobahn Three Lanes One-way Slope props {0} {1}", newLane.m_direction, newLane.m_similarLaneIndex);
+								laneProps.name = string.Format("Autobahn Three Lanes One-way Slope props {0} {1}", newLane.m_position, newLane.m_similarLaneIndex);
 								if (laneProps.name == l.m_laneProps.name) {
 									laneProps.name = "";
 								} else {
@@ -2935,7 +2951,7 @@ namespace GermanRoads
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Bus Stop Large")) {
 											continue;
-										} else if (l_props.m_prop.name.Equals ("New Street Light")) {
+										} else if (l_props.m_prop.name.Equals ("New Street Light Highway")) {
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Motorway Sign")) {
 											try
@@ -3115,6 +3131,8 @@ namespace GermanRoads
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop NoParking")) {
 											continue;
+										} else if (l_props.m_prop.name.Equals ("New Street Light Small Road")) {
+											continue;
 										} else {
 											proplist.Add (l_props);
 										}
@@ -3241,6 +3259,8 @@ namespace GermanRoads
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop")) {
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop NoParking")) {
+											continue;
+										} else if (l_props.m_prop.name.Equals ("New Street Light Small Road")) {
 											continue;
 										} else {
 											proplist.Add (l_props);
@@ -3370,6 +3390,8 @@ namespace GermanRoads
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop NoParking")) {
 											continue;
+										} else if (l_props.m_prop.name.Equals ("New Street Light Small Road")) {
+											continue;
 										} else {
 											proplist.Add (l_props);
 										}
@@ -3498,6 +3520,8 @@ namespace GermanRoads
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop")) {
 											continue;
 										} else if (l_props.m_prop.name.Equals ("Random Street Prop NoParking")) {
+											continue;
+										} else if (l_props.m_prop.name.Equals ("New Street Light Small Road")) {
 											continue;
 										} else {
 											proplist.Add (l_props);

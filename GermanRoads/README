@@ -1,9 +1,11 @@
 ﻿*******************************************************************************************************
 *** German Roads 																					***
-*** Version 0.5																					    ***
+*** Version 0.51																				    ***
 *******************************************************************************************************
 
 WARNING: Savegames with roads from this mod wont load without it!!! You have been warned! This Mod is very EXPERIMENTAL!!!
+
+Updated for 1.1.1b!
 
 This mod adds typical German Roads to the game, like the Bundesstrasse or Autobahn.
 That be said, these new roads are just clones of existing road types with different properties. None of the built-in road types (NetInfo) is modified in any way!
